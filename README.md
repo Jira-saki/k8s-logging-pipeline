@@ -4,7 +4,7 @@ A production-aligned Kubernetes centralized logging pipeline deployed locally vi
 
 ## Architecture Overview
 
-![Logging Pipeline Architecture](img/logging-pipeline-eks.png)
+![Logging Pipeline Architecture](img/logging-pipeline-eks.jpg)
 
 ## Tech Stack & Components
 
