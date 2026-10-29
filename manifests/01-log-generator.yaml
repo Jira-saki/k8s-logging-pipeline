@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: payment-service-simulator
+  namespace: logging-lab
+  labels:
+    app: payment-service
+    tier: backend
+spec:
+  containers:
+  - name: app
+    image: busybox:1.36
+    command: ["/bin/sh", "-c"]
+    args:
+      - |
+        while true; do
+          TS=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          ORDER_ID="ord-$((RANDOM % 9000 + 1000))"
+          AMOUNT=$((RANDOM % 500 + 10))
+
+          # 1. Structured JSON log (Timestamp, Level, Service, Order ID, Amount, Message)
+          echo "{\"timestamp\":\"$TS\",\"level\":\"INFO\",\"service_name\":\"payment-service\",\"order_id\":\"$ORDER_ID\",\"amount\":$AMOUNT,\"message\":\"payment processed successfully\"}"
+          sleep 2
+
+          # 2. Plain Text Error log (Legacy / System-style)
+          echo "$TS [ERROR] payment-service: failed to connect to fraud detection endpoint (retry in 5s)"
+          sleep 3
+        done

@@ -1,0 +1,18 @@
+loki:
+  enabled: true
+  isDefault: true
+  persistence:
+    enabled: false  # not use persistence
+
+promtail:
+  enabled: false   # use fluent-bit instead
+
+grafana:
+  enabled: true
+  sidecar:
+    datasources:
+      enabled: true
+      defaultDatasourceEnabled: true
+  adminPassword: "admin"
+  service:
+    type: ClusterIP
