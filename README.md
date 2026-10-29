@@ -98,12 +98,15 @@ Credentials: `admin` / `admin`
 {job="fluent-bit"} | json | amount > 250
 ```
 
-## Next Phase (Cloud Production Migration)
+## Next Phase: Production Cloud Migration (AWS EKS)
 
-แผนการพัฒนาในระยะถัดไป (Next Phase):
-* **Terraform Infrastructure as Code (IaC):** เขียนโครงสร้าง Terraform เพื่อ Provision ทรัพยากรบน AWS แบบอัตโนมัติ:
-  * **VPC & Networking:** ออกแบบ Public/Private Subnets สำหรับรองรับ EKS และ Node Groups
-  * **EKS Cluster:** ติดตั้งและตั้งค่า Kubernetes Cluster บน AWS
-  * **OIDC & IRSA (IAM Roles for Service Accounts):** กำหนดสิทธิ์แบบ Least Privilege เพื่อให้ Fluent Bit สามารถ Assume IAM Role ยิง Log เข้าสู่ AWS CloudWatch Logs / Grafana Cloud ได้อย่างปลอดภัยโดยไม่ต้องใช้ Static Credentials
-* **Production Log Shipping:** นำ `helm/fluent-bit-values-cloudwatch.yaml` มาใช้งานจริงบน EKS พร้อมตั้งค่า Log Stream, Log Group และ Data Retention
+Roadmap for extending this pipeline into an enterprise-grade AWS cloud environment:
+
+* **Terraform Infrastructure as Code (IaC):**
+  * **VPC & Networking:** Multi-AZ architecture with public/private subnets, NAT gateways, and VPC endpoints.
+  * **Amazon EKS Cluster:** Managed Kubernetes control plane and node groups.
+  * **OIDC & IRSA (IAM Roles for Service Accounts):** Least-privilege IAM policies binding Kubernetes ServiceAccounts to AWS IAM roles without static credentials.
+* **Production-Grade Log Shipping:**
+  * Utilize [helm/fluent-bit-values-cloudwatch.yaml](file:///Users/mest/dev/k8s-logging-pipeline/helm/fluent-bit-values-cloudwatch.yaml) to ship container logs to **AWS CloudWatch Logs** and **Amazon OpenSearch Service**.
+  * Dynamic log group creation, stream naming, and retention policies mapped per namespace and service.
 
