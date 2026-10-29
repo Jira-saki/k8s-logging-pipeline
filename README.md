@@ -4,24 +4,7 @@ A production-aligned Kubernetes centralized logging pipeline deployed locally vi
 
 ## Architecture Overview
 
-```text
-+--------------------------------------------------------------+
-| Kubernetes Cluster                                          |
-|                                                              |
-|  [ payment-service-simulator ]                               |
-|        |                                                     |
-|        v (stdout/stderr)                                     |
-|  /var/log/pods/*/*/*.log (Node hostpath storage)             |
-|        |                                                     |
-|        v (mount & tail)                                      |
-|  [ Fluent Bit (DaemonSet) ]                                  |
-|        | -> Parser: cri                                      |
-|        | -> Filter: kubernetes (Pod & Namespace metadata)     |
-|        | -> Output: Loki HTTP API                            |
-|        v                                                     |
-|  [ Loki (Log Engine) ] <------- [ Grafana (Visualization) ]  |
-+--------------------------------------------------------------+
-```
+![Logging Pipeline Architecture](img/logging-pipeline-eks.png)
 
 ## Tech Stack & Components
 
