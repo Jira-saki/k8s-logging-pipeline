@@ -6,7 +6,7 @@ A production-aligned Kubernetes centralized logging pipeline deployed locally vi
 
 <div align="center">
 
-| ![Architecture](img/pipeline-architecture.png) |
+| ![Architecture](img/logging-infra.png) |
 | :---: |
 
 </div>
