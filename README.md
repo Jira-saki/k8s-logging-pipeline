@@ -97,3 +97,13 @@ Credentials: `admin` / `admin`
 ```logql
 {job="fluent-bit"} | json | amount > 250
 ```
+
+## Next Phase (Cloud Production Migration)
+
+แผนการพัฒนาในระยะถัดไป (Next Phase):
+* **Terraform Infrastructure as Code (IaC):** เขียนโครงสร้าง Terraform เพื่อ Provision ทรัพยากรบน AWS แบบอัตโนมัติ:
+  * **VPC & Networking:** ออกแบบ Public/Private Subnets สำหรับรองรับ EKS และ Node Groups
+  * **EKS Cluster:** ติดตั้งและตั้งค่า Kubernetes Cluster บน AWS
+  * **OIDC & IRSA (IAM Roles for Service Accounts):** กำหนดสิทธิ์แบบ Least Privilege เพื่อให้ Fluent Bit สามารถ Assume IAM Role ยิง Log เข้าสู่ AWS CloudWatch Logs / Grafana Cloud ได้อย่างปลอดภัยโดยไม่ต้องใช้ Static Credentials
+* **Production Log Shipping:** นำ `helm/fluent-bit-values-cloudwatch.yaml` มาใช้งานจริงบน EKS พร้อมตั้งค่า Log Stream, Log Group และ Data Retention
+
