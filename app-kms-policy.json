@@ -1,0 +1,12 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Decrypt"
+      ],
+      "Resource": "arn:aws:kms:ap-northeast-1:636553479365:key/303af391-89f0-4095-8ef1-a2bbe74c98ea"
+    }
+  ]
+}
